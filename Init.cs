@@ -13,6 +13,8 @@ namespace MemoryGameObj
             int pairsLeft;
             int guessesLeft;
             List<Field> fields = new List<Field>();
+            DateTime date1;
+            DateTime date2;
             ConsoleKeyInfo userInput;
             Console.WriteLine("Hello, welcome to the memory game.");
             Console.WriteLine("Please choose your difficulty, input E for easy, H for hard\n");
@@ -49,20 +51,27 @@ namespace MemoryGameObj
             {
                 fields.Add(new Field('b', i, wordArray[i]));
             }
+            date1= DateTime.Now;
             Play playObject = new Play(pairsLeft, guessesLeft);
             while (true)
             {
                 Play.PlayRound(fields, wordArray.Length / 2, playObject);//going to main game logic
                 if (playObject.GuessesLeft == 0)
                 {
+                    date2 = DateTime.Now;
                     Console.Clear();
                     Console.WriteLine("You lose");
+                    System.TimeSpan diff1 = date2.Subtract(date1);
+                    Console.WriteLine("You spent "+diff1.Seconds+" seconds on the game ");
                     break;
                 }
                 if (playObject.PairsLeft == 0)
                 {
+                    date2 = DateTime.Now;
                     Console.Clear();
                     Console.WriteLine("You win!");
+                    System.TimeSpan diff1 = date2.Subtract(date1);
+                    Console.WriteLine("You had "+playObject.GuessesLeft+" chances left and you spent " + diff1.Seconds + " seconds on the game");
                     break;
                 }
             }
@@ -79,5 +88,4 @@ namespace MemoryGameObj
             }else System.Environment.Exit(0);
         }
     }
-
 }
