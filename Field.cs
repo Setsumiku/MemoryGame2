@@ -80,7 +80,7 @@ namespace MemoryGameObj
         {
             foreach (Field fieldListElement in fields)
             {
-                if (fieldListElement.fieldValue==currentCheck.fieldValue && fieldListElement.isDone==false && currentCheck.isDone==false && fieldListElement.rowLetter!=currentCheck.rowLetter||fieldListElement.columnNumber!=currentCheck.columnNumber&& fieldListElement.fieldValue == currentCheck.fieldValue && fieldListElement.isDone == false && currentCheck.isDone == false)//thanks debugging for letting me fix the bug... which made me do this monstrosity
+                if (fieldListElement.fieldValue==currentCheck.fieldValue && fieldListElement.isDone==false && currentCheck.isDone==false && fieldListElement.rowLetter!=currentCheck.rowLetter||fieldListElement.columnNumber!=currentCheck.columnNumber&& fieldListElement.fieldValue == currentCheck.fieldValue && fieldListElement.isDone == false && currentCheck.isDone == false)//it's awful
                 {
                     if (fieldListElement.isSet == true && currentCheck.isSet == true)
                     {
@@ -90,7 +90,7 @@ namespace MemoryGameObj
                     }
                 }
                 fieldListElement.isSet = false;
-                if (fieldListElement.fieldValue == currentCheck.fieldValue && fieldListElement.rowLetter == currentCheck.rowLetter && fieldListElement.columnNumber == currentCheck.columnNumber) fieldListElement.isSet = true;//hacked up solution to wrongly unflipping the word when foreach passes through the currently checked argument, might come back later if there's time
+                if (fieldListElement.fieldValue == currentCheck.fieldValue && fieldListElement.rowLetter == currentCheck.rowLetter && fieldListElement.columnNumber == currentCheck.columnNumber) fieldListElement.isSet = true;//awful solution to wrongly unflipping the word when foreach passes through the currently checked argument
             }
             currentCheck.isSet = true;
             return false;

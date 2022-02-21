@@ -6,9 +6,10 @@ namespace MemoryGameObj
     {
         public static void Display(List<Field> fields, int length, Play playObject)
         {
+            Console.Clear();
             Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
             Console.Write("\vA:");
-            for (int i = 0; i < length; i++)//length=8 here if hard mode
+            for (int i = 0; i < length; i++)//length is 8 here if hard mode
             {
                 if (fields[i].IsSet == true)
                 {

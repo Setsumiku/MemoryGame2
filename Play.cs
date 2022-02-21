@@ -6,10 +6,12 @@ namespace MemoryGameObj
     {
         int pairsLeft;
         int guessesLeft;
+        bool playedYetChecker;
         public Play(int pairs, int guesses)
         {
             this.pairsLeft = pairs;
             this.guessesLeft = guesses;
+            this.playedYetChecker = false;
         }
         public int PairsLeft
         {
@@ -33,20 +35,50 @@ namespace MemoryGameObj
                 guessesLeft = value; 
             }
         }
-        public static void PlayRound(List<Field> fields, int length, bool playedYetChecker, Play playObject)
+        public bool PlayedYetChecker
         {
-            if (playedYetChecker == false)
+            get 
+            { 
+                return playedYetChecker; 
+            }
+            set 
+            { 
+                playedYetChecker = value; 
+            }
+        }
+        public static void PlayRound(List<Field> fields, int length, Play playObject)
+        {
+            if (playObject.playedYetChecker == false)//going here if first move in game or a pair was just flipped (playedYetChecker is badly named)
             {
                 char[] input = GetInput.UserInput(length);
                 if (input[0] == 'a')
                 {
-                    fields[(int)Char.GetNumericValue(input[1]) - 1].IsSet = true;
+                    if(fields[(int)Char.GetNumericValue(input[1]) - 1].IsDone == false)
+                    {
+                        fields[(int)Char.GetNumericValue(input[1]) - 1].IsSet = true;
+                        playObject.playedYetChecker = true;
+                        DisplayGame.Display(fields, length, playObject);
+                    }
+                    else
+                    {
+                        DisplayGame.Display(fields, length, playObject);
+                        Console.WriteLine("Cannot flip an already flipped pair");
+                    }
                 }
                 else
                 {
-                    fields[(int)Char.GetNumericValue(input[1]) + length - 1].IsSet = true;
+                    if(fields[(int)Char.GetNumericValue(input[1]) + length - 1].IsDone == false)
+                    {
+                        fields[(int)Char.GetNumericValue(input[1]) + length - 1].IsSet = true;
+                        playObject.playedYetChecker = true;
+                        DisplayGame.Display(fields, length, playObject);
+                    }
+                    else
+                    {
+                        DisplayGame.Display(fields, length, playObject);
+                        Console.WriteLine("Cannot flip an already flipped pair");
+                    }
                 }
-                DisplayGame.Display(fields, length, playObject);
             }
             else
             {
@@ -57,10 +89,10 @@ namespace MemoryGameObj
                     if (Field.FieldCompare(fields, fields[(int)Char.GetNumericValue(input[1]) - 1]))
                     {
                         playObject.pairsLeft--;
+                        playObject.playedYetChecker=false;
                     }
                     else
                     {
-                        //fields[(int)Char.GetNumericValue(input[1]) - 1].IsSet = false;
                         playObject.guessesLeft--;
                     }
                     DisplayGame.Display(fields, length, playObject);
@@ -71,11 +103,11 @@ namespace MemoryGameObj
                     fields[(int)Char.GetNumericValue(input[1]) +length- 1].IsSet = true;
                     if (Field.FieldCompare(fields, fields[(int)Char.GetNumericValue(input[1]) +length- 1]))
                     {
+                        playObject.playedYetChecker = false;
                         playObject.pairsLeft--;
                     }
                     else
                     {
-                        //fields[(int)Char.GetNumericValue(input[1]) +length- 1].IsSet = false;
                         playObject.guessesLeft--;
                     }
                     DisplayGame.Display(fields, length, playObject);
@@ -86,7 +118,6 @@ namespace MemoryGameObj
                     Console.WriteLine("Cannot flip an already flipped pair");
                 }
             }
-            //DisplayGame.Display(fields, length, playObject);
         }
     }
 

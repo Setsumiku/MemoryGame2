@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 namespace MemoryGameObj
 {
-    //todo:restarting
-    //todo:fix that one tiny problem
     //todo:timer
     //todo:highscore
     class MemoryGame

@@ -14,21 +14,12 @@ namespace MemoryGameObj
         public static string[] Generate(int difficulty, string[] wordArray)
         {
             Random random = new Random();
-            string[] words = new string[difficulty];
-            for (int i = 0; i < difficulty; i++)
+            HashSet<string> wordsHash = new HashSet<string>();
+            while (wordsHash.Count < difficulty)
             {
-                words[i] = wordArray[random.Next(wordArray.Length)];
+                wordsHash.Add(wordArray[random.Next(0,wordArray.Length)]);
             }
-            return words;
-        }
-        public static string[] Shuffle(string[] wordArray)
-        {
-            Random random = new Random();
-            string[] words = new string[wordArray.Length];
-            for (int i = 0; i < wordArray.Length; i++)
-            {
-                words[i] = wordArray[random.Next(words.Length)];
-            }
+            string[] words = wordsHash.ToArray();
             return words;
         }
     }
