@@ -73,7 +73,7 @@ namespace MemoryGameObj
                     System.TimeSpan diff1 = date2.Subtract(date1);
                     Console.WriteLine("You had "+playObject.GuessesLeft+" chances left and you spent " + diff1.Seconds + " seconds on the game");
                     Console.WriteLine("Please write your name");
-                    string name=Console.ReadLine();
+                    string name=Console.ReadLine().ToString();
                     System.IO.File.WriteAllText("scores.txt", name+"|"+DateTime.Now.ToString()+"|"+ diff1.Seconds.ToString()+"|"+ playObject.GuessesLeft.ToString());
                     break;
                 }
